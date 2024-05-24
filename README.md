@@ -1,7 +1,6 @@
 <p align="center">
   <br/>
     <img alt="logo" src="./assets/FacLens_logo.png" width="80" style="max-width: 100%;">
-    <span style="font-family: 'Chalkboard SE'; font-size: 70px;">FacLens</span>
   <br/>
 </p>
 
