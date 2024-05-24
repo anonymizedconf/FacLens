@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="Probably the most complete UI kit out there. Multiple functionalities and controls added,  extended color palette and beautiful typography, designed as its own extended version of Bootstrap at  the highest level of quality.                             ">
+  <meta name="author" content="Webpixels">
+  <title>FacLens</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700" rel="stylesheet">
+  <!-- Theme CSS -->
+  <link type="text/css" href="static/assets/css/theme.css" rel="stylesheet">
+  <!-- Demo CSS - No need to use these in your project -->
+  <link type="text/css" href="static/assets/css/demo.css" rel="stylesheet">
+  <!-- ICON -->
+  <link rel="icon" href="static/assets/images/prv/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <main class="main">
+    <section style="background-color: #288cff;">
+      <div class="container d-flex align-items-center no-padding">
+        <div class="col">
+          <div class="row cols-xs-space align-items-center text-center text-md-left justify-content-center">
+            <div class="col-8">
+              <div class="text-center mt-5">
+                <h2 class="heading display-4 font-weight-400 text-white mt-5 animated" data-animation-in="fadeInUp"
+                  data-animation-delay="2000">
+                  <span class="font-weight-800">FacLens</span>
+                  <img src="static/assets/images/prv/logo.png" width="80">
+                </h2>
+                <p style="font-size: 17px; color: white;">
+                  FacLens is a lightweight tool for non-factuality prediction of LLMs.
+                  After a user submits a question to an LLM, FacLens predicts whether the LLM knows the factual answer before the response generation.
+                </p>
+                <div style="margin-bottom: 20px;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="slice slice-lg">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div style="border-radius: 8px; padding: 20px; border: 1px solid #ffaaaa;">
+              <div style="margin-bottom: 8px; display: flex;">
+                <span style="color:#ff2828; font-weight: bold;">Warning about performance boundary and ethics issue:</span>
+              </div>
+              1. As analyzed in the paper, FacLens presently performs better on questions whose topics it has seen during training. Therefore, users can prioritize considering the question topics we provide in the following examples. We also encourage users to provide questions that cover more diverse question topics to help us better explore the performance boundary of FacLens. 
+              <br>
+              2. This website serves solely for demonstration purposes, and we do not exert additional efforts to regulate the model's outputs. Consequently, our demo may not filter out responses when users submit malicious input.
+            </div>
+            <br>
+            <br>
+            
+            <div style="margin-bottom: 8px; display: flex;">
+              <p><b><span style="color:#288cff; font-size: 17px;">Please input a question that has a factual answer. Here are some examples (you can click on them):&nbsp;&nbsp;</span></b></p>
+            </div>
+        
+            <div style="margin-bottom: 8px; display: flex;">
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                class="badge badge-pill badge-secondary">Where is capital of the United States?</span></p>
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                  class="badge badge-pill badge-secondary">Where is the Amazon River?</span></p>
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                  class="badge badge-pill badge-secondary">Who is the director of Avatar?</span></p>
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                class="badge badge-pill badge-secondary">Who was the screenwriter for The Toy?</span></p>
+            </div>
+
+            <div style="margin-bottom: 8px; display: flex;">
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                class="badge badge-pill badge-secondary">What sport does Serena Williams play?</span></p>
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                  class="badge badge-pill badge-secondary">Who is the composer of the Blue Danube?</span></p>
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                  class="badge badge-pill badge-secondary">Who founded KFC?</span></p>
+              <p class="example-text" style="font-style: italic; cursor: pointer; margin-right: 8px; font-size: 14px;"><span
+                class="badge badge-pill badge-secondary">What is the occupation of Taylor Swift?</span></p>
+            </div>
+
+            <!-- select an LLM -->
+            <div class="row cols-xs-space cols-sm-space cols-md-space">
+              <div class="col-lg-3 col-md-6">
+                <select id="llm-select" class="selectpicker" title="Select an LLM">
+                  <option value="LLaMA2-7B-Chat">LLaMA2-7B-Chat</option>
+                  <option value="Mistral-7B-Instruct-v0">Mistral-7B-Instruct-v0</option>
+                  <option value="Meta-Llama-3-8B-Instruct">Meta-Llama-3-8B-Instruct</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+            </div>
+            
+            <!-- input the question -->
+            <div class="input-group mb-4">
+              <input id="question-input" type="text" class="form-control" placeholder="Input your question...">
+              <div class="input-group-append">
+                <button id="submit-btn" class="btn btn-primary" type="button">Submit</button>
+              </div>
+            </div>
+
+            <!-- Progress bar, estimation, and continue bar-->
+            <div id="progress-container" class="container text-center" style="display: none;">
+              
+              <div style="margin-bottom: 45px;">
+              </div>
+
+              <div class="row justify-content-center mt-4">
+                <div id="pred-fact" class="col-lg-12">
+                  
+                </div>
+                
+                <div class="col-lg-8 d-flex justify-content-center">
+                  <button id="continue-btn" type="button" class="btn btn-primary btn-animated btn-animated-x">
+                    <span class="btn-inner--visible">
+                      Continue to Query the LLM
+                      <i class="fas fa-comment-alt" style="font-size: 24px;"></i>
+                    </span>
+
+                    <span class="btn-inner--hidden"><i class="fas fa-arrow-right"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div id="generating-progress-bar" style="display: none;">
+              <!-- Outer label and percentage -->
+              <div class="progress-wrapper">
+                <h4 class="progress-label text-uppercase"><b>Generating ...</b></h4>
+                <div id="bar-status" class="progress" style="height: 30px;">
+                  
+                </div>
+              </div>
+            </div>
+            
+            <!-- response from the LLM -->
+            <div id="response-content" class="container text-left  mt-5" style="display: none;">
+              <div id="llm-image-container" class="row justify-content-left mt-4">
+                <table>
+                  <tr>
+                    <td id="llm-image-column" style="vertical-align: top;"></td>
+                    <td style="width: 10px;"></td>
+                    <td>
+                      <p id="llm-answer" style="text-align: left; font-size: 17px;">
+                        Taylor Swift is a highly acclaimed singer-songwriter and one of the most successful musicians of
+                        her generation. Born on December 13, 1989, in Reading, Pennsylvania, she started her career in
+                        country music before transitioning to pop. Swift gained widespread recognition with her
+                        self-titled debut album in 2006, which spawned hit singles like "Teardrops on My Guitar" and
+                        "Our Song." Since then, Swift has released several albums, including "Fearless," "Speak Now,"
+                        "Red," "1989," "Reputation," "Lover," and "folklore," each receiving critical acclaim and
+                        commercial success. She's known for her autobiographical songwriting style, often drawing from
+                        her personal experiences and relationships.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+              </div>
+
+              <!-- Checkbox -->
+              <div class="container mt-5">
+                <div class="row justify-content-center">
+                  <div id="feedback-btn" class="col-12 col-md-8 col-lg-6">
+                    <p style="font-size: 15px; font-weight: bold;">Did the FacLens make a correct prediction on this question? Please score the performance of FacLens on this question:</p>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="rating" id="rating1" value="1">
+                      <label class="form-check-label" for="rating1">
+                        1 (Poor)
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="rating" id="rating2" value="2">
+                      <label class="form-check-label" for="rating2">
+                        2 (Average)
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
+                      <label class="form-check-label" for="rating3">
+                        3 (Good)
+                      </label>
+                    </div>
+                    <!-- Submit Button -->
+                    <button id="submit-btn2" type="submit">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script>
+          const submitBtn = document.getElementById('submit-btn');
+          const continueBtn = document.getElementById('continue-btn');
+          const hiddenContent = document.getElementById('hidden-content');
+          const progressContainer = document.getElementById('progress-container');
+          const responseContent = document.getElementById('response-content');
+          const llmSelect = document.getElementById('llm-select');
+          const questionInput = document.getElementById('question-input');
+          const llmImageColumn = document.getElementById('llm-image-column');
+          const submitBtn2 = document.getElementById('submit-btn2');
+          const messageThanks = document.getElementById('message_thanks');
+          const llmAnswer = document.getElementById('llm-answer');
+          const predFact = document.getElementById('pred-fact');
+          const ProgressBarBlock = document.getElementById('generating-progress-bar');
+          const ProgressBarStatus = document.getElementById('bar-status');
+
+          submitBtn.addEventListener('click', function () {
+            if (llmSelect.value === '' || questionInput.value === '') {
+              alert('Please select an LLM and enter your question.');
+              return;
+            }
+            
+            progressContainer.style.display = 'none';
+            responseContent.style.display = 'none';
+            ProgressBarBlock.style.display = 'none';
+            continueBtn.style.display = 'block';
+
+            var radios = document.getElementsByName('rating');
+            for(var i = 0; i < radios.length; i++) {
+              radios[i].checked = false;
+            }
+
+            const model_name = document.getElementById('llm-select').value;
+            const question = questionInput.value;
+            const queryParams = new URLSearchParams({
+              question: question,
+              model_name: model_name
+            });
+
+            fetch(`/infer_fact?${queryParams.toString()}`)
+              .then(response => response.json())
+              .then(data => {
+                
+                if (data.decision == 0) {
+                  predFact.innerHTML = `<p style="color: green; font-size: 30px; font-weight: bold;">The LLM knows the factual answer 😊</p>`
+                } else if (data.decision == 0.5) {
+                  predFact.innerHTML = `<p style="color: blue; font-size: 30px; font-weight: bold;">I am not sure if the LLM knows the factual answer 😂`
+                } else {
+                  predFact.innerHTML = `<p style="color: red; font-size: 30px; font-weight: bold;">The LLM doesn't know the factual answer 😭`
+                }
+                
+                
+                progressContainer.style.display = 'block';
+                // hiddenContent.style.display = 'block';
+              })
+              .catch(error => {
+                console.error('Error fetching the answer:', error);
+              });
+
+          });
+
+          continueBtn.addEventListener('click', function () {
+            ProgressBarStatus.innerHTML = `<div class="progress-bar progress-bar-striped progress-bar-animated bg-skyblue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>`
+            ProgressBarBlock.style.display = 'block';
+
+            const model_name = document.getElementById('llm-select').value;
+            const question = questionInput.value;
+            const queryParams = new URLSearchParams({
+              question: question,
+              model_name: model_name
+            });
+
+            fetch(`/infer_answer?${queryParams.toString()}`)
+              .then(response => response.json())
+              .then(data => {
+                llmAnswer.innerText = data.answer;
+
+                // ProgressBarStatus.innerHTML = `<div class="progress-bar bg-skyblue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>`
+                responseContent.style.display = 'block';
+                ProgressBarBlock.style.display = 'none';
+                continueBtn.style.display = 'none';
+              })
+              .catch(error => {
+                console.error('Error fetching the answer:', error);
+              });
+          });
+
+          llmSelect.addEventListener('change', function () {
+            progressContainer.style.display = 'none';
+            responseContent.style.display = 'none';
+            ProgressBarBlock.style.display = 'none';
+
+            var radios = document.getElementsByName('rating');
+            
+            for(var i = 0; i < radios.length; i++) {
+              radios[i].checked = false;
+            }
+
+            const selectedOption = llmSelect.value;
+            let imagePath;
+
+            switch (selectedOption) {
+              case 'LLaMA2-7B-Chat':
+                imagePath = 'static/assets/images/prv/llama.png';
+                break;
+              case 'Mistral-7B-Instruct-v0':
+                imagePath = 'static/assets/images/prv/mistral.png';
+                break;
+              case 'Meta-Llama-3-8B-Instruct':
+                imagePath = 'static/assets/images/prv/llama3.png';
+                break;
+              default:
+                imagePath = '';
+            }
+
+            llmImageColumn.innerHTML = `<img src="${imagePath}" class="avatar avatar-sm">`;
+          });
+
+          const exampleTexts = document.querySelectorAll('.example-text');
+
+          exampleTexts.forEach(function (exampleText) {
+            exampleText.addEventListener('click', function () {
+              questionInput.value = exampleText.textContent.replace('', '').replace('', '').replace('', '');
+            });
+          });
+          submitBtn2.addEventListener('click', function () {
+            const question = questionInput.value;
+            const model_name = document.getElementById('llm-select').value;
+
+            const ratingButtons = document.getElementsByName('rating');
+
+            let selectedRating = null;
+
+            for (const button of ratingButtons) {
+                if (button.checked) {
+                    selectedRating = button.value;
+                    break;
+                }
+            }
+
+            if (selectedRating) {
+                console.log(`Selected rating: ${selectedRating}`);
+            } else {
+                alert('No rating selected');
+            }
+            
+            const feedback_score = selectedRating;
+            const queryParams = new URLSearchParams({
+              question: question,
+              model_name: model_name,
+              feedback_score: feedback_score
+            });
+
+            fetch(`/feedback?${queryParams.toString()}`)
+              .then(response => response.json())
+              .then(data => {
+              alert('Thanks for scoring! You will help us better improve FacLens! 😄');
+              })
+              .catch(error => {
+                console.error('Error fetching the answer:', error);
+              });
+          });
+        </script>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Core -->
+  <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="static/assets/vendor/popper/popper.min.js"></script>
+  <script src="static/assets/js/bootstrap/bootstrap.min.js"></script>
+  <!-- FontAwesome 5 -->
+  <script src="static/assets/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+  <!-- Page plugins -->
+  <script src="static/assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+  <script src="static/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+  <script src="static/assets/vendor/input-mask/input-mask.min.js"></script>
+  <script src="static/assets/vendor/nouislider/js/nouislider.min.js"></script>
+  <script src="static/assets/vendor/textarea-autosize/textarea-autosize.min.js"></script>
+  <!-- Theme JS -->
+  <script src="static/assets/js/theme.js"></script>
+</body>
+
+</html>
