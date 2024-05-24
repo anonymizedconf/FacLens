@@ -1,6 +1,6 @@
 <p align="center">
   <br/>
-    <img alt="logo" src="./assets/FacLens_logo.png" width="80" style="max-width: 100%;">
+    <img alt="logo" src="./assets/FacLens_logo.png" width="350" style="max-width: 100%;">
   <br/>
 </p>
 
